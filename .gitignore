@@ -1,0 +1,8 @@
+# Windows
+Thumbs.db
+desktop.ini
+*.tmp
+
+# Editors
+.vscode/
+.claude/

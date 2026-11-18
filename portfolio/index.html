@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MORPH · Departamento de Diseño</title>
+<meta name="description" content="MORPH: renders, video, tours, Unreal, planos, marketing y maquetas para arquitectura.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&display=swap" rel="stylesheet">
+<script>if (/[?&]idea=1/.test(location.search)) document.documentElement.classList.add('idea1');</script>
+<link rel="preload" href="../fonts/SaansRegular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="../fonts/SaansMedium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="../fonts/SaansSemiBold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="styles.css?v=176">
+</head>
+<body>
+
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="goo" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur id="gooBlur" in="SourceGraphic" stdDeviation="8" result="blur"/>
+    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11"/>
+  </filter>
+  <filter id="exGoo" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur"/>
+    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -12"/>
+  </filter>
+</svg>
+
+<!-- Cabecera mínima: solo los nombres de las secciones; aparece al dejar de moverse -->
+<nav class="site-nav" id="siteNav" aria-label="Secciones">
+  <a href="#intro" data-go="home">Home</a>
+  <a href="#capas" data-go="intro">Intro</a>
+  <div class="nav-drop"><a href="#torre" data-go="services">Services</a><div class="nav-sub" id="navSub"></div></div>
+  <a href="#explore" data-go="explore">Explore</a>
+  <a href="#faq" data-go="faq">FAQ</a>
+  <a href="#contacto" data-go="contact">Contact</a>
+</nav>
+
+<main>
+
+  <!-- 01 · INTRO -->
+  <section id="intro" class="scene" aria-label="Introducción">
+    <div class="stage">
+      <div class="intro-quote" id="introQuote">
+        <p class="intro-word">morph</p>
+        <p class="intro-type">verb</p>
+        <p class="intro-def">to gradually change someone or something, from one thing to another</p>
+      </div>
+      <p class="sr-only">Imaginary, Reality</p>
+      <canvas id="cells" class="cells" role="img" aria-label="Logotipo de MORPH formado por células"></canvas>
+      <div class="scroll-hint" id="introHint" aria-hidden="true">
+        <span>Desliza</span>
+        <svg width="14" height="22" viewBox="0 0 14 22"><path d="M7 1v19M1 14l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · CAPAS -->
+  <section id="capas" class="scene" aria-label="Quiénes somos">
+    <div class="stage" id="capasStage">
+      <div class="clouds" id="capasClouds" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 03 · TORRE -->
+  <section id="torre" class="scene" aria-label="Servicios">
+    <div class="stage" id="torreStage">
+      <div class="sky" aria-hidden="true"></div>
+      <div class="zoomer" id="zoomer">
+        <!-- Diseño base: vídeo de la torre (ascensor hacia abajo), controlado por el scroll -->
+        <canvas class="tower-video tower-canvas" id="towerCanvas" aria-hidden="true"></canvas>
+        <div class="clouds3d" id="cloudsBack" aria-hidden="true"></div>
+        <div class="viewport3d" aria-hidden="true"><div class="world-scale" id="worldScale"><div class="world" id="world"></div></div></div>
+        <div class="clouds3d" id="cloudsFront" aria-hidden="true"></div>
+        <div class="sky-layers" id="skyLayers" aria-hidden="true"></div>
+        <!-- franja oscura inferior fija (no se mueve con el scroll); el barrido la tapa al subir -->
+        <div class="tower-fade" aria-hidden="true"></div>
+        <div class="clouds" id="torreClouds" aria-hidden="true"></div>
+        <div class="cards" id="cards"></div>
+      </div>
+      <div class="giant" id="giant" aria-hidden="true"><div class="giant-edge"></div></div>
+      <div class="blackout" id="blackout" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 04 · EXPLORE US: cuadrícula de puntos; cada punto es un proyecto que se abre en 3D -->
+  <section id="explore" class="scene dark-section" aria-labelledby="exploreTitle">
+    <div class="stage explore-stage" id="exploreStage">
+      <div class="ex-in" id="exIn">
+        <header class="ex-head">
+          <p class="eyebrow">04 · Proyectos</p>
+          <h2 id="exploreTitle" class="display">Explore</h2>
+          <p class="lead">Cada punto es un proyecto. Pulsa uno para verlo en 3D.</p>
+        </header>
+        <div class="ex-grid" id="exGrid" role="list" aria-label="Proyectos"></div>
+        <div class="ex-view" id="exView" aria-live="polite">
+          <div class="ex-name">
+            <div><h3 id="exName"></h3></div>
+          </div>
+          <div class="ex-scene" id="exScene"></div>
+          <p class="ex-hint" id="exHint">Arrastra para girar</p>
+        </div>
+        <div class="ex-pics" id="exPics"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · FAQ -->
+  <section id="faq" class="scene dark-section" aria-labelledby="faqTitle">
+    <div class="stage faq-stage" id="faqStage">
+    <div class="split">
+      <div class="split-head">
+        <p class="eyebrow">05 · Preguntas frecuentes</p>
+        <h2 id="faqTitle" class="display">FAQ</h2>
+        <p class="lead">Lo que más nos preguntan antes de empezar un proyecto.</p>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary><span class="num">01</span><span class="q">¿Qué servicios ofrecemos?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p>Trabajamos en siete categorías: Renders, Video, Tours, Unreal, Planos, Marketing y Morph XS (maquetas físicas e impresión 3D). Puedes combinar varias en un mismo proyecto.</p>
+        </details>
+        <details>
+          <summary><span class="num">02</span><span class="q">¿Qué diferencia hay entre un render simple y uno complejo?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p>El simple se produce en D5 y está pensado para vistas ágiles y favorables del proyecto. El complejo se trabaja en 3ds Max con mucho más detalle de entorno, materiales e iluminación.</p>
+        </details>
+        <details>
+          <summary><span class="num">03</span><span class="q">¿Cuántas correcciones incluye cada imagen?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p>[Número de correcciones incluidas por tipo de servicio].</p>
+        </details>
+        <details>
+          <summary><span class="num">04</span><span class="q">¿Cuánto tarda la entrega?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p>[Plazo de entrega habitual según servicio].</p>
+        </details>
+        <details>
+          <summary><span class="num">05</span><span class="q">¿Podemos hacer recorridos interactivos o realidad virtual?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p>Sí. Hacemos recorridos en Unreal Engine con libre desplazamiento e interactivos, tours 360° en línea, realidad virtual y realidad aumentada.</p>
+        </details>
+        <details>
+          <summary><span class="num">06</span><span class="q">¿Cómo contrato un servicio?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p>Elige los servicios en el catálogo, añádelos al carrito y te enviamos una propuesta con el detalle de cada pieza.</p>
+        </details>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO (minimalista) -->
+  <section id="contacto" class="dark-section" aria-labelledby="contactTitle">
+    <div class="start">
+      <p class="eyebrow">Contacto</p>
+      <h2 id="contactTitle" class="start-title">Let's get started</h2>
+      <form class="start-form" onsubmit="return false">
+        <label><span class="sr-only">Email</span><input type="email" name="email" autocomplete="email" placeholder="tu@email.com"></label>
+        <label><span class="sr-only">Tu proyecto</span><input type="text" name="mensaje" placeholder="Cuéntanos tu proyecto en una frase"></label>
+        <button type="submit" class="start-btn" aria-label="Enviar">
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 11h15M12 5l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <p class="start-mail">[correo@morph.com]</p>
+    </div>
+    <footer class="site-footer">
+      <span class="wordmark">morph</span>
+      <nav aria-label="Información legal">
+        <a href="../Legal.dc.html#aviso">Aviso legal</a>
+        <a href="../Legal.dc.html#privacidad">Privacidad</a>
+        <a href="../Legal.dc.html#cookies">Cookies</a>
+        <a href="../Legal.dc.html#terminos">Términos</a>
+      </nav>
+    </footer>
+  </section>
+</main>
+
+<!-- Fondo de la galería: al pulsar fuera de ella, vuelve a ser la tarjeta -->
+<div class="floor-shade" id="floorShade" hidden></div>
+<!-- Galería: la tarjeta se abre y ocupa la parte izquierda de la pantalla -->
+<div class="floor" id="floor" role="dialog" aria-modal="true" aria-labelledby="floorTitle" hidden>
+  <div class="floor-inner">
+    <header class="floor-head">
+      <div>
+        <p class="eyebrow" id="floorNum">01 / 07</p>
+        <h2 id="floorTitle" class="display display-sm">Renders</h2>
+        <p class="lead" id="floorText"></p>
+      </div>
+      <button type="button" class="floor-close" id="floorClose" aria-label="Cerrar y volver a la torre">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="floor-body" id="floorBody"></div>
+  </div>
+</div>
+
+<script src="logo-dots.js?v=176"></script>
+<script src="main.js?v=176"></script>
+</body>
+</html>
